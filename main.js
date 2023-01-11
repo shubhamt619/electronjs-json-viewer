@@ -3,6 +3,7 @@
 // Modules to control application life and create native browser window
 const { app, BrowserWindow, dialog, ipcMain } = require('electron')
 const path = require('path')
+const script = require('./src/assets/js/script.js')
 
 const createWindow = () => {
   // Create the browser window.
@@ -17,21 +18,9 @@ const createWindow = () => {
   // and load the index.html of the app.
   mainWindow.loadFile('index.html')
   // Open the DevTools.
-  mainWindow.webContents.openDevTools()
+  // mainWindow.webContents.openDevTools()
 }
 
-ipcMain.on('openFolder', (event, path) => { 
-
-    dialog.showOpenDialog(win, {
-      properties: ['openDirectory']
-    }, 
-      paths => respondWithPath(paths)
-    );
-})
-
-const respondWithPath = (paths) => {
-    event.sender.send('folderData', paths) 
-  }
 
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
