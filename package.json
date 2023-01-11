@@ -1,0 +1,27 @@
+{
+  "name": "electronjs-json-viewer",
+  "version": "1.0.0",
+  "description": "<img height=\"40\" src=\"https://user-images.githubusercontent.com/25181517/192108891-d86b6220-e232-423a-bf5f-90903e6887c3.png\" alt=\"Visual Studio Code\" title=\"Visual Studio Code\" /> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\r <img height=\"40\" src=\"https://user-images.githubusercontent.com/25181517/117447155-6a868a00-af3d-11eb-9cfe-245df15c9f3f.png\" alt=\"JavaScript\" title=\"JavaScript\" /> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\r <img height=\"40\" src=\"https://user-images.githubusercontent.com/25181517/183568594-85e280a7-0d7e-4d1a-9028-c8c2209e073c.png\" alt=\"Node.js\" title=\"Node.js\" /> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "electron ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shubhamt619/electronjs-json-viewer.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/shubhamt619/electronjs-json-viewer/issues"
+  },
+  "homepage": "https://github.com/shubhamt619/electronjs-json-viewer#readme",
+  "devDependencies": {
+    "electron": "^22.0.1"
+  },
+  "dependencies": {
+    "materialize-css": "^1.0.0-rc.2"
+  }
+}

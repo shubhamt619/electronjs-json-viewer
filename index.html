@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'">
+    <!--Import materialize.css-->
+      <link type="text/css" rel="stylesheet" href="src/assets/css/materialize.min.css"  media="screen,projection"/>
+
+      <!--Let browser know website is optimized for mobile-->
+      <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>JSON File Viewer</title>
+  </head>
+  <body>
+    <div class="container">
+    <h2>JSON File Viewer</h2>
+    <h6>Please select the folder for reading the JSON files</h6>
+    <button id="opener">Browse for Folder</button>
+    </div>
+    
+  <!--JavaScript at end of body for optimized loading-->
+  <script type="text/javascript" src="src/assets/js/materialize.min.js"></script>
+  </body>
+  <script src="./renderer.js"></script>
+  <script src="./src/assets/js/script.js"></script>
+</html>
