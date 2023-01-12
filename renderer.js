@@ -37,6 +37,7 @@ window.electronAPI.processFile((event, jsonObj) => {
     chatContainer.classList.remove("hide")
     botId.innerHTML = jsonObj.BotId;
     creationTS.innerHTML = jsonObj.CreationTS;
+    chatBody.innerHTML = "";
     for (var i =0; i < jsonObj.Bubbles.length; i++) {
         let text = botTextTemplate.replace(/TEXT/g, jsonObj.Bubbles[i].text)
         chatBody.innerHTML += text;
