@@ -5,16 +5,35 @@ const { app, BrowserWindow, dialog, ipcMain } = require('electron')
 const path = require('path')
 const script = require('./src/assets/js/script.js')
 const fs = require('fs');
+const glob = require("glob");
 
-const handleSetTitle = (event, title) => {
-  const webContents = event.sender
-  const win = BrowserWindow.fromWebContents(webContents)
-  win.setTitle(title)
+
+var mainWindow;
+
+async function handleFileOpen() {
+  const { canceled, filePaths } = await dialog.showOpenDialog(mainWindow, {
+    properties: ['openDirectory']
+  })
+  console.log('directories selected', filePaths[0])
+  if (canceled) {
+    return
+  } else {
+    return filePaths[0]
+  }
+}
+
+async function handleListFiles(event, directory) {
+  console.log("Inside handleListFiles", directory);
+  let pathToScan = `${directory}\\*.json`.replace(/\\/g, '/')
+  let allFiles = glob(pathToScan, {}, function (er, files) {
+    console.log("Glob done", files);
+    mainWindow.webContents.send("handle-all-files", files);
+  })
 }
 
 const createWindow = () => {
   // Create the browser window.
-  const mainWindow = new BrowserWindow({
+  mainWindow = new BrowserWindow({
     width: 800,
     height: 600,
     webPreferences: {
@@ -33,7 +52,8 @@ const createWindow = () => {
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
 app.whenReady().then(() => {
-  ipcMain.on('set-title', handleSetTitle)
+  ipcMain.handle('dialog:openFolder', handleFileOpen)
+  ipcMain.handle('load-all-files', handleListFiles)
   createWindow()
 
   app.on('activate', () => {

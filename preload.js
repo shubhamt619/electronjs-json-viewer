@@ -4,9 +4,11 @@
 
 const { contextBridge, ipcRenderer } = require('electron')
 
-contextBridge.exposeInMainWorld('electronAPI', {
-    setTitle: (title) => ipcRenderer.send('set-title', title),
-    getAllFiles: async() => ipcRenderer.send('get-all-files'),
+
+contextBridge.exposeInMainWorld('electronAPI',{
+  selectFolder: () => ipcRenderer.invoke('dialog:openFolder'),
+  loadFiles: (directory) => ipcRenderer.invoke('load-all-files', directory),
+  handleFilesList: (callback) => ipcRenderer.on('handle-all-files', callback),
 })
 
 window.addEventListener('DOMContentLoaded', () => {
@@ -19,6 +21,5 @@ window.addEventListener('DOMContentLoaded', () => {
   for (const dependency of ['chrome', 'node', 'electron']) {
     replaceText(`${dependency}-version`, process.versions[dependency])
   }
-  
 })
 
