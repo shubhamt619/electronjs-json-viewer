@@ -4,6 +4,13 @@
 const { app, BrowserWindow, dialog, ipcMain } = require('electron')
 const path = require('path')
 const script = require('./src/assets/js/script.js')
+const fs = require('fs');
+
+const handleSetTitle = (event, title) => {
+  const webContents = event.sender
+  const win = BrowserWindow.fromWebContents(webContents)
+  win.setTitle(title)
+}
 
 const createWindow = () => {
   // Create the browser window.
@@ -26,6 +33,7 @@ const createWindow = () => {
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
 app.whenReady().then(() => {
+  ipcMain.on('set-title', handleSetTitle)
   createWindow()
 
   app.on('activate', () => {
