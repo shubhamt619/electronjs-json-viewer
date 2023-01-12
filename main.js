@@ -3,7 +3,6 @@
 // Modules to control application life and create native browser window
 const { app, BrowserWindow, dialog, ipcMain } = require('electron')
 const path = require('path')
-const script = require('./src/assets/js/script.js')
 const fs = require('fs');
 const glob = require("glob");
 
@@ -22,6 +21,15 @@ async function handleFileOpen() {
   }
 }
 
+async function handleReadFile(event, file) {
+  console.log("In handleReadFile", file);
+  fs.readFile(file, 'utf8', function (err, data) {
+    if (err) throw err;
+    var obj = JSON.parse(data);
+    mainWindow.webContents.send("process-file", obj);
+  });
+}
+
 async function handleListFiles(event, directory) {
   console.log("Inside handleListFiles", directory);
   let pathToScan = `${directory}\\*.json`.replace(/\\/g, '/')
@@ -38,8 +46,11 @@ const createWindow = () => {
     height: 600,
     webPreferences: {
       preload: path.join(__dirname, 'preload.js')
-    }
+    },
+    show: false
   })
+  mainWindow.maximize();
+  mainWindow.show();
 
   // and load the index.html of the app.
   mainWindow.loadFile('index.html')
@@ -54,6 +65,7 @@ const createWindow = () => {
 app.whenReady().then(() => {
   ipcMain.handle('dialog:openFolder', handleFileOpen)
   ipcMain.handle('load-all-files', handleListFiles)
+  ipcMain.handle('read-file', handleReadFile)
   createWindow()
 
   app.on('activate', () => {

@@ -9,6 +9,8 @@ contextBridge.exposeInMainWorld('electronAPI',{
   selectFolder: () => ipcRenderer.invoke('dialog:openFolder'),
   loadFiles: (directory) => ipcRenderer.invoke('load-all-files', directory),
   handleFilesList: (callback) => ipcRenderer.on('handle-all-files', callback),
+  readFile: (file) => ipcRenderer.invoke('read-file', file),
+  processFile: (file) => ipcRenderer.on('process-file', file),
 })
 
 window.addEventListener('DOMContentLoaded', () => {
